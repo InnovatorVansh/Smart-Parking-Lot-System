@@ -2,13 +2,10 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  // Data Model
-  // slots: Array of { slotNo: number, isCovered: boolean, isEVCharging: boolean, isOccupied: boolean }
+  
   const [slots, setSlots] = useState([]);
 
-  // Output message state
-  const [message, setMessage] = useState({ text: '', type: '' }); // type: 'success', 'error', 'info'
-
+  const [message, setMessage] = useState({ text: '', type: '' });
   // --- 1. Add Parking Slot State ---
   const [newSlotNo, setNewSlotNo] = useState('');
   const [newIsCovered, setNewIsCovered] = useState(false);
@@ -21,7 +18,6 @@ function App() {
   // --- 4. Remove Vehicle State ---
   const [removeSlotNo, setRemoveSlotNo] = useState('');
 
-  // Helper to show messages
   const showMessage = (text, type = 'info') => {
     setMessage({ text, type });
   };
@@ -63,13 +59,11 @@ function App() {
 
     // Filter available slots based on requirements
     const availableSlots = slots.filter(slot => {
-      // Must not be occupied
+
       if (slot.isOccupied) return false;
       
-      // If EV is needed, slot MUST have EV charging
       if (parkNeedsEV && !slot.isEVCharging) return false;
       
-      // If Cover is needed, slot MUST be covered
       if (parkNeedsCover && !slot.isCovered) return false;
       
       return true;
